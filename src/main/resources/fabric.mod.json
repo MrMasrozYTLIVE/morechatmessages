@@ -3,32 +3,22 @@
   "id": "mintmap",
   "version": "${version}",
 
-  "name": "MintMap",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "MoreChatMessages",
+  "description": "Mod that adds more QOL chat messages",
   "authors": [
     "MiTask"
   ],
   "contact": {
-    "homepage": "https://glass-launcher.net/",
-    "sources": "https://github.com/calmilamsy/stationapi-example-mod"
+    "homepage": "https://modrinth.com/mod/morechatmessages",
+    "sources": "https://github.com/MrMasrozYTLIVE/morechatmessages"
   },
 
   "license": "MIT",
-  "icon": "assets/mintmap/icon.png",
+  "icon": "assets/morechatmessages/icon.png",
 
   "environment": "*",
-  "entrypoints": {
-    "stationapi:event_bus": [
-      "net.mitask.mintmap.MintMap"
-    ],
-    "stationapi:event_bus_client": [
-      "net.mitask.mintmap.event.KeybindListener"
-    ],
-    "stationapi:event_bus_server": [
-    ]
-  },
   "mixins": [
-    "mintmap.mixins.json"
+    "morechatmessages.mixins.json"
   ],
 
   "depends": {
