@@ -17,6 +17,11 @@
   "icon": "assets/morechatmessages/icon.png",
 
   "environment": "*",
+  "entrypoints": {
+    "gcapi3": [
+      "net.mitask.morechatmessages.config.Config"
+    ]
+  },
   "mixins": [
     "morechatmessages.mixins.json"
   ],

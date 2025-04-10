@@ -4,6 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.achievement.Achievement;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityRegistry;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,6 +13,8 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.stat.Stat;
+import net.mitask.morechatmessages.config.Config;
+import net.mitask.morechatmessages.config.ConfigObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.spongepowered.asm.mixin.Mixin;
@@ -59,8 +62,12 @@ public class ServerPlayerMixin {
             }
         }
 
-        if(!hasAchievement) {
-            String message = "%s has just earned the achievement §a[%s]".formatted(player.name, achievement.stringId);
+        ConfigObject config = Config.INSTANCE;
+        if(!hasAchievement && config.advancementEnabled) {
+            String message = config.advancementMessage
+                    .replaceAll("\\{player}", player.name)
+                    .replaceAll("\\{advancement}", I18n.getTranslation(achievement.stringId));
+
 
             getMinecraftServer().playerManager.players.forEach(o -> {
                 var otherOther = PlayerEntity.class.cast(o);
@@ -73,23 +80,36 @@ public class ServerPlayerMixin {
     public void onKilledBy(Entity adversary, CallbackInfo ci) {
         if(!((Object) this instanceof PlayerEntity player)) return;
 
-        StringBuilder messageBuilder = new StringBuilder(player.name);
+        ConfigObject config = Config.INSTANCE;
+        if(!config.deathEnabled) return;
 
-        if(adversary == null) messageBuilder.append(" has died");
+        String message = "§4[MoreChatMessages] Error happened with death message. Please report this bug to @MiTask with explanation what you did when this happened.";
+
+        String killer = "";
+        String item = "";
+
+        if(adversary == null) message = config.unknownDeath;
         else {
-            messageBuilder.append(" was killed by ");
-            if(adversary instanceof PlayerEntity killer) {
-                messageBuilder.append(killer.name);
-                if(killer.getHand() != null) messageBuilder.append(" using ").append(killer.getHand().getItem().getTranslatedName());
+            if(adversary instanceof PlayerEntity entity) {
+                message = config.killedByPlayer;
+                killer = entity.name;
+                if(entity.getHand() != null) {
+                    message = config.killedByPlayerUsingItem;
+                    item = entity.getHand().getItem().getTranslatedName();
+                };
             } else {
-                messageBuilder.append(EntityRegistry.getId(adversary));
+                message = config.killedByEntity;
+                killer = EntityRegistry.getId(adversary);
             }
         }
 
-        String message = messageBuilder.toString();
+        String finalMessage = message
+                .replaceAll("\\{player}", player.name)
+                .replaceAll("\\{killer}", killer)
+                .replaceAll("\\{item}", item);
         getMinecraftServer().playerManager.players.forEach(o -> {
             var otherOther = PlayerEntity.class.cast(o);
-            otherOther.sendMessage(message);
+            otherOther.sendMessage(finalMessage);
         });
     }
 
