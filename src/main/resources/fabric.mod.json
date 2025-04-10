@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "mintmap",
+  "version": "${version}",
+
+  "name": "MintMap",
+  "description": "This is an example description! Tell everyone what your mod is about!",
+  "authors": [
+    "MiTask"
+  ],
+  "contact": {
+    "homepage": "https://glass-launcher.net/",
+    "sources": "https://github.com/calmilamsy/stationapi-example-mod"
+  },
+
+  "license": "MIT",
+  "icon": "assets/mintmap/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "stationapi:event_bus": [
+      "net.mitask.mintmap.MintMap"
+    ],
+    "stationapi:event_bus_client": [
+      "net.mitask.mintmap.event.KeybindListener"
+    ],
+    "stationapi:event_bus_server": [
+    ]
+  },
+  "mixins": [
+    "mintmap.mixins.json"
+  ],
+
+  "depends": {
+    "minecraft": "1.0.0-beta.7.3"
+  }
+}

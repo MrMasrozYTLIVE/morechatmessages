@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.mitask.morechatmessages.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+  ],
+  "server": [
+    "ServerPlayerMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
