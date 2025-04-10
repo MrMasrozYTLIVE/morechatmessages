@@ -6,6 +6,8 @@
   "mixins": [
   ],
   "server": [
+    "ServerLoginHandlerMixin",
+    "ServerPlayerHandlerMixin",
     "ServerPlayerMixin"
   ],
   "client": [

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "mintmap",
+  "id": "morechatmessages",
   "version": "${version}",
 
   "name": "MoreChatMessages",
@@ -16,7 +16,7 @@
   "license": "MIT",
   "icon": "assets/morechatmessages/icon.png",
 
-  "environment": "*",
+  "environment": "server",
   "entrypoints": {
     "gcapi3": [
       "net.mitask.morechatmessages.config.Config"

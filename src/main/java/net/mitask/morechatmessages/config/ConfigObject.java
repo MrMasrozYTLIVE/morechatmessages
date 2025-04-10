@@ -4,14 +4,22 @@ import net.glasslauncher.mods.gcapi3.api.ConfigEntry;
 
 public class ConfigObject {
     @ConfigEntry(name = "Achievement message enabled")
-    public boolean advancementEnabled = true;
+    public Boolean advancementEnabled = true;
+    @ConfigEntry(name = "Death message enabled")
+    public Boolean deathEnabled = true;
+    @ConfigEntry(name = "Join message enabled")
+    public Boolean joinEnabled = true;
+    @ConfigEntry(name = "Leave message enabled")
+    public Boolean leaveEnabled = true;
+
+    @ConfigEntry(name = "Join message")
+    public String joinMessage = "§e{player} joined the game.";
+    @ConfigEntry(name = "Leave message")
+    public String leaveMessage = "§e{player} left the game.";
 
     @ConfigEntry(name = "Achievement message")
     public String advancementMessage = "{player} has just earned the achievement §a[{achievement}]";
 
-
-    @ConfigEntry(name = "Death message enabled")
-    public boolean deathEnabled = true;
 
     @ConfigEntry(name = "Unknown death reason message")
     public String unknownDeath = "{player} has died";
