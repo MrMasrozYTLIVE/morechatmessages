@@ -66,7 +66,7 @@ public class ServerPlayerMixin {
         if(!hasAchievement && config.advancementEnabled) {
             String message = config.advancementMessage
                     .replaceAll("\\{player}", player.name)
-                    .replaceAll("\\{advancement}", I18n.getTranslation(achievement.stringId));
+                    .replaceAll("\\{achievement}", I18n.getTranslation(achievement.stringId));
 
 
             getMinecraftServer().playerManager.players.forEach(o -> {
